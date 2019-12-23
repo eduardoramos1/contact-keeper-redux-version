@@ -1,12 +1,26 @@
 const express = require("express");
-
 const router = express.Router();
+const { check, validationResult } = require("express-validator");
+
+const auth = require("./../middleware/auth");
+
+const Contact = require("./../models/Contact");
+const User = require("./../models/User");
 
 // rota    -----  GET api/contacts
 // descrição ---- Pegar contatos do usuario
 // acesso ----- Privado
-router.get("/", (req, res) => {
-	res.send("Pegar contatos ");
+router.get("/", auth, async (req, res) => {
+	try {
+		// pega contatos do usuario organizado pelos mais recentes
+		const contacts = await Contact.find({ user: req.user.id }).sort({
+			date: -1
+		});
+		res.json(contacts);
+	} catch (err) {
+		console.error(err.message);
+		res.status(500).json({ msg: "Houve um erro no servidor" });
+	}
 });
 
 // rota    -----  POST api/contacts
