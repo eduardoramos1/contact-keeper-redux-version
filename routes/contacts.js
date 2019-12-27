@@ -10,13 +10,32 @@ const User = require("./../models/User");
 // rota    -----  GET api/contacts
 // descrição ---- Pegar contatos do usuario
 // acesso ----- Privado
+
 router.get("/", auth, async (req, res) => {
+	const { page, perPage } = req.query;
+
+	if (!page || !perPage) {
+		try {
+			// pega contatos do usuario organizado pelos mais recentes
+			const contacts = await Contact.find({ user: req.user.id }).sort({
+				date: -1
+			});
+			res.json(contacts);
+		} catch (err) {
+			console.error(err.message);
+			res.status(500).json({ msg: "Houve um erro no servidor" });
+		}
+	}
+
 	try {
-		// pega contatos do usuario organizado pelos mais recentes
-		const contacts = await Contact.find({ user: req.user.id }).sort({
-			date: -1
-		});
-		res.json(contacts);
+		const paginatedContacts = await Contact.find({ user: req.user.id })
+			.sort({
+				date: -1
+			})
+			.skip(page * perPage - perPage)
+			.limit(parseInt(perPage));
+
+		res.json(paginatedContacts);
 	} catch (err) {
 		console.error(err.message);
 		res.status(500).json({ msg: "Houve um erro no servidor" });
