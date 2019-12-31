@@ -1,4 +1,5 @@
 import React, { useEffect } from "react";
+import { BrowserRouter, Switch, Route } from "react-router-dom";
 
 import HomeContent from "./components/Layout/HomeContent";
 import NavBar from "./components/Layout/NavBar";
@@ -19,13 +20,19 @@ function App() {
 
 	return (
 		<Provider store={store}>
-			<div className="App">
-				<div className="home-layout">
-					<NavBar />
-					<HomeContent />
+			<BrowserRouter>
+				<div className="App">
+					<div className="home-layout">
+						<NavBar />
+						<Switch>
+							<Route path="/">
+								<HomeContent />
+							</Route>
+						</Switch>
+					</div>
+					<Footer />
 				</div>
-				<Footer />
-			</div>
+			</BrowserRouter>
 		</Provider>
 	);
 }

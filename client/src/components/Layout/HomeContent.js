@@ -10,7 +10,7 @@ const HomeContent = () => {
 				</h5>
 			</div>
 			<div className="row center">
-				<a href="#!" className="btn-large purple">
+				<a href="#!" className="btn-large purple waves-effect waves-light">
 					Cadastre-se
 				</a>
 			</div>
