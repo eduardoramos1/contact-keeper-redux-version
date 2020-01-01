@@ -5,6 +5,9 @@ import HomeContent from "./components/Layout/HomeContent";
 import NavBar from "./components/Layout/NavBar";
 import Footer from "./components/Layout/Footer";
 
+import Register from "./components/user/Register";
+import Login from "./components/user/Login";
+
 import "materialize-css/dist/css/materialize.min.css";
 import M from "materialize-css/dist/js/materialize.min.js";
 
@@ -19,21 +22,27 @@ function App() {
 	});
 
 	return (
-		<Provider store={store}>
-			<BrowserRouter>
+		<BrowserRouter>
+			<Provider store={store}>
 				<div className="App">
 					<div className="home-layout">
 						<NavBar />
 						<Switch>
-							<Route path="/">
+							<Route exact path="/">
 								<HomeContent />
 							</Route>
+							<Route exact path="/register">
+								<Register />
+							</Route>
+							<Route exact path="/login">
+								<Login />
+							</Route>
 						</Switch>
+						<Footer />
 					</div>
-					<Footer />
 				</div>
-			</BrowserRouter>
-		</Provider>
+			</Provider>
+		</BrowserRouter>
 	);
 }
 

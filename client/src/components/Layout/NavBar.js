@@ -17,10 +17,10 @@ const NavBar = () => {
 							<Link to="/">Home</Link>
 						</li>
 						<li>
-							<Link to="#!">Cadastrar</Link>
+							<Link to="/register">Cadastrar</Link>
 						</li>
 						<li>
-							<Link to="#!">Login</Link>
+							<Link to="/login">Login</Link>
 						</li>
 					</ul>
 				</div>
@@ -31,10 +31,10 @@ const NavBar = () => {
 					<Link to="/">Home</Link>
 				</li>
 				<li>
-					<Link to="#!">Cadastrar</Link>
+					<Link to="/register">Cadastrar</Link>
 				</li>
 				<li>
-					<Link to="#!">Login</Link>
+					<Link to="/login">Login</Link>
 				</li>
 			</ul>
 		</div>
