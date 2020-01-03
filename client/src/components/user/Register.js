@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 
 import M from "materialize-css/dist/js/materialize.min.js";
+import PropTypes from "prop-types";
 
 import { connect } from "react-redux";
 import {
@@ -142,6 +143,13 @@ const Register = ({
 			)}
 		</React.Fragment>
 	);
+};
+
+Register.propTypes = {
+	registerUser: PropTypes.func.isRequired,
+	setLoading: PropTypes.func.isRequired,
+	clearErrors: PropTypes.func.isRequired,
+	setLoggedInUser: PropTypes.func.isRequired
 };
 
 const mapStateToProps = state => ({
