@@ -53,12 +53,16 @@ const Register = ({
 				classes: "toast-error"
 			});
 		} else {
-			setLoading();
 			const formData = { name, password, email };
-			registerUser(formData);
-			setLoggedInUser();
+			setLoading();
+			// registerUser(formData);
+			// setLoggedInUser();
+
+			registerUser(formData).then(suc => setLoggedInUser());
 		}
 	};
+
+	const wait = () => new Promise(resolve => {});
 
 	return (
 		<React.Fragment>

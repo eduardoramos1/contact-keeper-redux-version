@@ -37,9 +37,13 @@ export const registerUser = formData => async dispatch => {
 				classes: "toast-success"
 			});
 
-			dispatch({
-				type: REGISTER_SUCCESS,
-				payload: token
+			return new Promise(function(resolve, reject) {
+				resolve(
+					dispatch({
+						type: REGISTER_SUCCESS,
+						payload: token
+					})
+				);
 			});
 		} else {
 			const error = await res.json();
