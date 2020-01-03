@@ -12,14 +12,11 @@ import {
 	CLEAR_ERRORS
 } from "./types";
 
-import { useDispatch } from "react-redux";
 // logar usuario
 
 // cadastrar usuario
 export const registerUser = formData => async dispatch => {
 	try {
-		setLoading();
-
 		const res = await fetch("/api/users", {
 			method: "POST",
 			headers: {
@@ -65,5 +62,13 @@ export const registerUser = formData => async dispatch => {
 export const setLoading = () => {
 	return {
 		type: SET_LOADING
+	};
+};
+
+// Limpar erros
+
+export const clearErrors = () => {
+	return {
+		type: CLEAR_ERRORS
 	};
 };

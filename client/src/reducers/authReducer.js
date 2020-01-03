@@ -46,6 +46,11 @@ export default (state = initialState, action) => {
 				...state,
 				loading: true
 			};
+		case CLEAR_ERRORS:
+			return {
+				...state,
+				error: null
+			};
 
 		default:
 			return state;
