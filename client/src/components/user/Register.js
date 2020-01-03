@@ -6,13 +6,15 @@ import { connect } from "react-redux";
 import {
 	registerUser,
 	setLoading,
-	clearErrors
+	clearErrors,
+	setLoggedInUser
 } from "./../../actions/authActions";
 
 const Register = ({
 	registerUser,
 	setLoading,
 	clearErrors,
+	setLoggedInUser,
 	auth: { loading, error }
 }) => {
 	const [name, setName] = useState("");
@@ -53,6 +55,7 @@ const Register = ({
 			setLoading();
 			const formData = { name, password, email };
 			registerUser(formData);
+			setLoggedInUser();
 		}
 	};
 
@@ -148,5 +151,6 @@ const mapStateToProps = state => ({
 export default connect(mapStateToProps, {
 	registerUser,
 	setLoading,
-	clearErrors
+	clearErrors,
+	setLoggedInUser
 })(Register);

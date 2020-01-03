@@ -13,6 +13,10 @@ import {
 } from "./types";
 
 // logar usuario
+export const loginUser = formData => async dispatch => {
+	try {
+	} catch (err) {}
+};
 
 // cadastrar usuario
 export const registerUser = formData => async dispatch => {
@@ -54,9 +58,32 @@ export const registerUser = formData => async dispatch => {
 		});
 	}
 };
-// logout
 
 // seta usuario logado
+export const setLoggedInUser = () => async dispatch => {
+	try {
+		const res = await fetch("/api/auth", {
+			headers: {
+				"x-auth-token": localStorage.getItem("token")
+			}
+		});
+
+		const data = await res.json();
+
+		dispatch({
+			type: LOAD_USER,
+			payload: data
+		});
+	} catch (err) {
+		console.error(err);
+		dispatch({
+			type: AUTH_ERROR,
+			payload: err.response.msg
+		});
+	}
+};
+
+// logout
 
 // loading
 export const setLoading = () => {
