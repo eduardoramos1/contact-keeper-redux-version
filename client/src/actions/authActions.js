@@ -15,7 +15,45 @@ import {
 // logar usuario
 export const loginUser = formData => async dispatch => {
 	try {
-	} catch (err) {}
+		const res = await fetch("/api/auth", {
+			method: "POST",
+			headers: {
+				"Content-Type": "application/json"
+			},
+			body: JSON.stringify(formData)
+		});
+
+		if (res.ok) {
+			const token = await res.json();
+
+			M.toast({
+				html: "Bem vindo!",
+				classes: "toast-success"
+			});
+
+			return new Promise(function(resolve, reject) {
+				resolve(
+					dispatch({
+						type: LOGIN_SUCCESS,
+						payload: token
+					})
+				);
+			});
+		} else {
+			const error = await res.json();
+			console.error(error);
+			dispatch({
+				type: LOGIN_FAIL,
+				payload: error
+			});
+		}
+	} catch (err) {
+		console.error(err);
+		dispatch({
+			type: REGISTER_FAIL,
+			payload: err.response.msg
+		});
+	}
 };
 
 // cadastrar usuario

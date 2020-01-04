@@ -37,6 +37,7 @@ const Register = ({
 				clearErrors();
 			}
 		}
+		// eslint-disable-next-line
 	}, [error]);
 
 	const onSubmit = ev => {
@@ -55,14 +56,10 @@ const Register = ({
 		} else {
 			const formData = { name, password, email };
 			setLoading();
-			// registerUser(formData);
-			// setLoggedInUser();
 
-			registerUser(formData).then(suc => setLoggedInUser());
+			registerUser(formData).then(() => setLoggedInUser());
 		}
 	};
-
-	const wait = () => new Promise(resolve => {});
 
 	return (
 		<React.Fragment>
