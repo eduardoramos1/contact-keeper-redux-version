@@ -1,6 +1,7 @@
 import React from "react";
 
 import ContactList from "./ContactList";
+import Pagination from "./Pagination";
 
 const Contacts = () => {
 	return (
@@ -18,9 +19,8 @@ const Contacts = () => {
 					</div>
 				</form>
 			</div>
-			{/* criar componente para cada contato depois */}
-
 			<ContactList />
+			<Pagination />
 
 			<div className="fixed-action-btn">
 				<a href="#!" className="btn-floating btn-large red">
