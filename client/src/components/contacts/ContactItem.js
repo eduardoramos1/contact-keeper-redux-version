@@ -1,6 +1,31 @@
 import React from "react";
 
-const ContactItem = ({ cont }) => {
+import M from "materialize-css/dist/js/materialize.min.js";
+
+import { connect } from "react-redux";
+
+import {
+	deleteContact,
+	getTotalContacts,
+	getPaginatedContacts
+} from "./../../actions/contactActions";
+
+const ContactItem = ({
+	cont,
+	deleteContact,
+	getTotalContacts,
+	getPaginatedContacts,
+	contact: { page }
+}) => {
+	const onDelete = () => {
+		if (window.confirm("Tem certeza que deseja excluir este contato?")) {
+			deleteContact(cont._id);
+			getTotalContacts();
+			getPaginatedContacts(page);
+			M.toast({ html: "Contato excluído", classes: "toast-success" });
+		}
+	};
+
 	return (
 		<div className="col s12  l4 ">
 			<div className="card-panel white">
@@ -10,7 +35,10 @@ const ContactItem = ({ cont }) => {
 							<i className="material-icons icon-bigger indigo-text darken-4 btn-edit">
 								edit
 							</i>
-							<i className="material-icons icon-bigger red-text darken-2 btn-delete">
+							<i
+								className="material-icons icon-bigger red-text darken-2 btn-delete"
+								onClick={onDelete}
+							>
 								delete
 							</i>
 						</div>
@@ -26,4 +54,12 @@ const ContactItem = ({ cont }) => {
 	);
 };
 
-export default ContactItem;
+const mapStateToProps = state => ({
+	contact: state.contact
+});
+
+export default connect(mapStateToProps, {
+	deleteContact,
+	getTotalContacts,
+	getPaginatedContacts
+})(ContactItem);

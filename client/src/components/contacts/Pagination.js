@@ -5,21 +5,23 @@ import { connect } from "react-redux";
 import {
 	setLoading,
 	getTotalContacts,
-	getPaginatedContacts
+	getPaginatedContacts,
+	setPage
 } from "./../../actions/contactActions";
 
 const Pagination = ({
 	setLoading,
 	getTotalContacts,
 	getPaginatedContacts,
-	contact: { totalContacts }
+	setPage,
+	contact: { totalContacts, page }
 }) => {
 	useEffect(() => {
 		setLoading();
+		getPaginatedContacts();
 		getTotalContacts();
 	}, []);
 
-	const [page, setPage] = useState(1);
 	const [perPage, setPerPage] = useState(6);
 	let totalPages = Math.ceil(totalContacts / perPage);
 
@@ -27,6 +29,7 @@ const Pagination = ({
 		console.log(toPage);
 		setPage(toPage);
 		getPaginatedContacts(toPage, perPage);
+		getTotalContacts();
 	};
 
 	return (
@@ -78,5 +81,6 @@ const mapStateToProps = state => ({
 export default connect(mapStateToProps, {
 	setLoading,
 	getTotalContacts,
-	getPaginatedContacts
+	getPaginatedContacts,
+	setPage
 })(Pagination);

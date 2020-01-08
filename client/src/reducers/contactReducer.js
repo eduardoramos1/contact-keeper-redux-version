@@ -3,7 +3,9 @@ import {
 	CONTACT_LOADING,
 	CONTACT_ERROR,
 	GET_TOTAL_CONTACTS,
-	ADD_CONTACT
+	ADD_CONTACT,
+	DELETE_CONTACT,
+	SET_PAGE
 } from "../actions/types";
 
 const initialState = {
@@ -12,7 +14,8 @@ const initialState = {
 	filteredContacts: null,
 	loading: false,
 	error: null,
-	totalContacts: null
+	totalContacts: null,
+	page: 1
 };
 
 export default (state = initialState, action) => {
@@ -29,6 +32,11 @@ export default (state = initialState, action) => {
 				...state,
 				loading: false
 			};
+		case DELETE_CONTACT:
+			return {
+				...state,
+				contacts: state.contacts.filter(con => con._id !== action.payload)
+			};
 
 		case GET_TOTAL_CONTACTS:
 			return {
@@ -42,6 +50,12 @@ export default (state = initialState, action) => {
 				...state,
 				loading: false,
 				error: action.payload
+			};
+
+		case SET_PAGE:
+			return {
+				...state,
+				page: action.payload
 			};
 
 		case CONTACT_LOADING:

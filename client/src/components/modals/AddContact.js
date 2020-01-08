@@ -6,10 +6,16 @@ import { connect } from "react-redux";
 
 import {
 	addContact,
-	getPaginatedContacts
+	getPaginatedContacts,
+	getTotalContacts
 } from "./../../actions/contactActions";
 
-const AddContact = ({ addContact, getPaginatedContacts }) => {
+const AddContact = ({
+	addContact,
+	getPaginatedContacts,
+	getTotalContacts,
+	contact: { page }
+}) => {
 	const [name, setName] = useState("");
 	const [email, setEmail] = useState("");
 	const [phone, setPhone] = useState("");
@@ -29,7 +35,8 @@ const AddContact = ({ addContact, getPaginatedContacts }) => {
 		const formData = { name, email, phone };
 
 		await addContact(formData);
-		getPaginatedContacts();
+		getPaginatedContacts(page);
+		getTotalContacts();
 
 		M.toast({
 			html: "Contato adicionado com sucesso !",
@@ -105,5 +112,6 @@ const mapStateToProps = state => ({
 
 export default connect(mapStateToProps, {
 	getPaginatedContacts,
-	addContact
+	addContact,
+	getTotalContacts
 })(AddContact);

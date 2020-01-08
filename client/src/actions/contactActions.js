@@ -9,7 +9,8 @@ import {
 	CLEAR_FILTER,
 	CONTACT_ERROR,
 	CONTACT_LOADING,
-	GET_TOTAL_CONTACTS
+	GET_TOTAL_CONTACTS,
+	SET_PAGE
 } from "./types";
 
 // buscar contatos paginado
@@ -110,6 +111,30 @@ export const addContact = formData => async dispatch => {
 
 // deletar contato
 
+export const deleteContact = id => async dispatch => {
+	try {
+		const token = localStorage.getItem("token");
+
+		await fetch(`api/contacts/${id}`, {
+			method: "DELETE",
+			headers: {
+				"x-auth-token": token
+			}
+		});
+
+		dispatch({
+			type: DELETE_CONTACT,
+			payload: id
+		});
+	} catch (error) {
+		console.error(error);
+		dispatch({
+			type: CONTACT_ERROR,
+			payload: error
+		});
+	}
+};
+
 // atualizar contato
 
 // setar contato atual
@@ -120,5 +145,14 @@ export const addContact = formData => async dispatch => {
 export const setLoading = () => {
 	return {
 		type: CONTACT_LOADING
+	};
+};
+
+// seta pagina atual
+
+export const setPage = page => {
+	return {
+		type: SET_PAGE,
+		payload: page
 	};
 };
