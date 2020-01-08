@@ -2,7 +2,8 @@ import {
 	GET_CONTACTS,
 	CONTACT_LOADING,
 	CONTACT_ERROR,
-	GET_TOTAL_CONTACTS
+	GET_TOTAL_CONTACTS,
+	ADD_CONTACT
 } from "../actions/types";
 
 const initialState = {
@@ -20,6 +21,12 @@ export default (state = initialState, action) => {
 			return {
 				...state,
 				contacts: action.payload,
+				loading: false
+			};
+
+		case ADD_CONTACT:
+			return {
+				...state,
 				loading: false
 			};
 

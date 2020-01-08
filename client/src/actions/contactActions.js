@@ -13,7 +13,10 @@ import {
 } from "./types";
 
 // buscar contatos paginado
-export const getPaginatedContacts = (page, perPage) => async dispatch => {
+export const getPaginatedContacts = (
+	page = 1,
+	perPage = 6
+) => async dispatch => {
 	try {
 		const token = localStorage.getItem("token");
 		const res = await fetch(`api/contacts/?page=${page}&perPage=${perPage}`, {
@@ -71,6 +74,39 @@ export const getTotalContacts = () => async dispatch => {
 };
 
 // add contato
+
+export const addContact = formData => async dispatch => {
+	try {
+		const token = localStorage.getItem("token");
+
+		const res = await fetch("api/contacts", {
+			method: "POST",
+			headers: {
+				"x-auth-token": token,
+				"Content-Type": "application/json"
+			},
+			body: JSON.stringify(formData)
+		});
+
+		if (res.ok) {
+			dispatch({
+				type: ADD_CONTACT
+			});
+		} else {
+			const error = await res.json();
+			dispatch({
+				type: CONTACT_ERROR,
+				payload: error
+			});
+		}
+	} catch (error) {
+		console.error(error);
+		dispatch({
+			type: CONTACT_ERROR,
+			payload: error
+		});
+	}
+};
 
 // deletar contato
 
