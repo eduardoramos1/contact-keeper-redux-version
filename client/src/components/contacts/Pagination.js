@@ -12,7 +12,7 @@ const Pagination = ({
 	setLoading,
 	getTotalContacts,
 	getPaginatedContacts,
-	contact: { error, loading, totalContacts }
+	contact: { totalContacts }
 }) => {
 	useEffect(() => {
 		setLoading();
@@ -30,31 +30,31 @@ const Pagination = ({
 	};
 
 	return (
-		<ul class="pagination">
+		<ul className="pagination">
 			<li
 				className={page === 1 ? "disabled" : "waves-effect"}
 				onClick={() => changePage(1)}
 			>
 				<a href="#!">
-					<i class="material-icons">chevron_left</i>
+					<i className="material-icons">chevron_left</i>
 				</a>
 			</li>
 			{page > 1 && (
-				<li class="" onClick={() => changePage(page - 1)}>
+				<li className="" onClick={() => changePage(page - 1)}>
 					<a href="#!"> {page - 1}</a>
 				</li>
 			)}
-			<li class="active">
+			<li className="active">
 				<a href="#!"> {page}</a>
 			</li>
 			{page < totalPages && (
-				<li class="waves-effect" onClick={() => changePage(page + 1)}>
+				<li className="waves-effect" onClick={() => changePage(page + 1)}>
 					<a href="#!">{page + 1}</a>
 				</li>
 			)}
 
 			{page + 1 < totalPages && (
-				<li class="waves-effect" onClick={() => changePage(page + 2)}>
+				<li className="waves-effect" onClick={() => changePage(page + 2)}>
 					<a href="#!">{page + 2}</a>
 				</li>
 			)}
@@ -64,7 +64,7 @@ const Pagination = ({
 				onClick={() => changePage(totalPages)}
 			>
 				<a href="#!">
-					<i class="material-icons">chevron_right</i>
+					<i className="material-icons">chevron_right</i>
 				</a>
 			</li>
 		</ul>
