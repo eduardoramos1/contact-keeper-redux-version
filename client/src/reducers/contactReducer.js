@@ -7,7 +7,9 @@ import {
 	DELETE_CONTACT,
 	SET_PAGE,
 	UPDATE_CONTACT,
-	SET_CURRENT
+	SET_CURRENT,
+	CLEAR_FILTER,
+	FILTER_CONTACT
 } from "../actions/types";
 
 const initialState = {
@@ -59,6 +61,20 @@ export default (state = initialState, action) => {
 			return {
 				...state,
 				totalContacts: action.payload,
+				loading: false
+			};
+
+		case FILTER_CONTACT:
+			return {
+				...state,
+				filteredContacts: action.payload,
+				loading: false
+			};
+
+		case CLEAR_FILTER:
+			return {
+				...state,
+				filteredContacts: null,
 				loading: false
 			};
 

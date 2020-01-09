@@ -12,7 +12,7 @@ import {
 const ContactList = ({
 	setLoading,
 	getPaginatedContacts,
-	contact: { loading, contacts, error }
+	contact: { loading, contacts, error, filteredContacts }
 }) => {
 	useEffect(() => {
 		setLoading();
@@ -32,18 +32,30 @@ const ContactList = ({
 			);
 		}
 
-		return (
-			<React.Fragment>
+		if (filteredContacts !== null) {
+			return filteredContacts.length > 0 ? (
 				<div className="row">
-					{contacts !== null && contacts.length > 0 ? (
-						contacts.map(cont => <ContactItem cont={cont} key={cont._id} />)
-					) : (
-						<div className="grey-text text-darken-2">
-							Não há contatos para mostrar...
-						</div>
-					)}
+					{filteredContacts.map(cont => (
+						<ContactItem cont={cont} key={cont._id} />
+					))}
 				</div>
-			</React.Fragment>
+			) : (
+				<div className="grey-text text-darken-2">
+					Não teve resultado para sua busca...
+				</div>
+			);
+		}
+
+		return (
+			<div className="row">
+				{contacts !== null && contacts.length > 0 ? (
+					contacts.map(cont => <ContactItem cont={cont} key={cont._id} />)
+				) : (
+					<div className="grey-text text-darken-2">
+						Não há contatos para mostrar...
+					</div>
+				)}
+			</div>
 		);
 	}
 };

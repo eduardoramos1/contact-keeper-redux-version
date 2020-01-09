@@ -20,6 +20,7 @@ const Pagination = ({
 		setLoading();
 		getPaginatedContacts();
 		getTotalContacts();
+		// eslint-disable-next-line
 	}, []);
 
 	const [perPage, setPerPage] = useState(6);
