@@ -4,6 +4,8 @@ import { connect } from "react-redux";
 import Spinner from "./../Layout/Spinner";
 import ContactItem from "./ContactItem";
 
+import { CSSTransition, TransitionGroup } from "react-transition-group";
+
 import {
 	setLoading,
 	getPaginatedContacts
@@ -35,9 +37,13 @@ const ContactList = ({
 		if (filteredContacts !== null) {
 			return filteredContacts.length > 0 ? (
 				<div className="row">
-					{filteredContacts.map(cont => (
-						<ContactItem cont={cont} key={cont._id} />
-					))}
+					<TransitionGroup>
+						{filteredContacts.map(cont => (
+							<CSSTransition key={cont._id} timeout={1000} classNames="contact">
+								<ContactItem cont={cont} />
+							</CSSTransition>
+						))}
+					</TransitionGroup>
 				</div>
 			) : (
 				<div className="grey-text text-darken-2">
@@ -49,7 +55,13 @@ const ContactList = ({
 		return (
 			<div className="row">
 				{contacts !== null && contacts.length > 0 ? (
-					contacts.map(cont => <ContactItem cont={cont} key={cont._id} />)
+					<TransitionGroup>
+						{contacts.map(cont => (
+							<CSSTransition key={cont._id} classNames="contact" timeout={800}>
+								<ContactItem cont={cont} />
+							</CSSTransition>
+						))}
+					</TransitionGroup>
 				) : (
 					<div className="grey-text text-darken-2">
 						Não há contatos para mostrar...
