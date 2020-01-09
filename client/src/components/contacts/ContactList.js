@@ -17,6 +17,7 @@ const ContactList = ({
 	useEffect(() => {
 		setLoading();
 		getPaginatedContacts(1, 6);
+		// eslint-disable-next-line
 	}, []);
 
 	if (loading) {

@@ -1,28 +1,36 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 import M from "materialize-css/dist/js/materialize.min.js";
 
 import { connect } from "react-redux";
 
-import {
-	addContact,
-	getPaginatedContacts,
-	getTotalContacts
-} from "./../../actions/contactActions";
+import { updateContact } from "./../../actions/contactActions";
 
-const AddContact = ({
-	addContact,
-	getPaginatedContacts,
-	getTotalContacts,
-	contact: { page }
-}) => {
+const EditContact = ({ updateContact, contact: { currentContact } }) => {
 	const [name, setName] = useState("");
 	const [email, setEmail] = useState("");
 	const [phone, setPhone] = useState("");
 
-	const onSubmit = async ev => {
+	useEffect(() => {
+		if (currentContact !== null) {
+			setName(currentContact.name);
+			setEmail(currentContact.email);
+			setPhone(currentContact.phone);
+		}
+	}, [currentContact]);
+
+	// para carregar os labels já com a classe ativa, se eu não fizer isso, o label ficará ocupando o mesmo espaço do texto carregado dinamicamente
+	(() => {
+		let elems = document.querySelectorAll(
+			"#edit-contact-modal .input-field label"
+		);
+		elems.forEach(el => el.classList.add("active"));
+	})();
+
+	const onUpdate = ev => {
 		ev.preventDefault();
-		const el = document.querySelector(".modal");
+
+		const el = document.querySelector("#edit-contact-modal");
 		const instance = M.Modal.getInstance(el);
 
 		if (!name || !email || !phone) {
@@ -32,14 +40,17 @@ const AddContact = ({
 			});
 		}
 
-		const formData = { name, email, phone };
+		const updatedContact = {
+			_id: currentContact._id,
+			name,
+			email,
+			phone
+		};
 
-		await addContact(formData);
-		getPaginatedContacts(page);
-		getTotalContacts();
+		updateContact(updatedContact);
 
 		M.toast({
-			html: "Contato adicionado com sucesso !",
+			html: "Contato Atualizado",
 			classes: "toast-success"
 		});
 
@@ -47,20 +58,20 @@ const AddContact = ({
 	};
 
 	return (
-		<form id="add-contact-modal" className="modal" style={{ height: "80%" }}>
+		<form id="edit-contact-modal" className="modal" style={{ height: "80%" }}>
 			<div className="modal-content">
-				<h4>Novo Contato</h4>
+				<h4>Editar Contato</h4>
 				<div className="row">
 					<div className="input-field">
 						<input
 							type="text"
 							name="name"
-							id="name"
+							id="edit-name"
 							value={name}
 							className="validate"
 							onChange={ev => setName(ev.target.value)}
 						/>
-						<label htmlFor="name" className="active">
+						<label htmlFor="edit-name" className="active">
 							Nome do contato
 						</label>
 					</div>
@@ -70,11 +81,11 @@ const AddContact = ({
 						<input
 							type="email"
 							name="email"
-							id="email"
+							id="edit-email"
 							value={email}
 							onChange={ev => setEmail(ev.target.value)}
 						/>
-						<label htmlFor="email" className="active">
+						<label htmlFor="edit-email" className="active">
 							Email do Contato
 						</label>
 					</div>
@@ -84,12 +95,12 @@ const AddContact = ({
 						<input
 							type="text"
 							name="phone"
-							id="phone"
+							id="edit-phone"
 							value={phone}
 							className="validate"
 							onChange={ev => setPhone(ev.target.value)}
 						/>
-						<label htmlFor="phone" className="active">
+						<label htmlFor="edit-phone" className="active">
 							Número
 						</label>
 					</div>
@@ -97,9 +108,9 @@ const AddContact = ({
 			</div>
 			<button
 				className="btn-large purple waves-effect waves-light"
-				onClick={onSubmit}
+				onClick={onUpdate}
 			>
-				Cadastrar
+				Atualizar
 			</button>
 			<div className="modal-footer"></div>
 		</form>
@@ -110,8 +121,4 @@ const mapStateToProps = state => ({
 	contact: state.contact
 });
 
-export default connect(mapStateToProps, {
-	getPaginatedContacts,
-	addContact,
-	getTotalContacts
-})(AddContact);
+export default connect(mapStateToProps, { updateContact })(EditContact);
