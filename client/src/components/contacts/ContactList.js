@@ -39,7 +39,11 @@ const ContactList = ({
 				<div className="row">
 					<TransitionGroup>
 						{filteredContacts.map(cont => (
-							<CSSTransition key={cont._id} timeout={1000} classNames="contact">
+							<CSSTransition
+								key={cont._id}
+								timeout={{ enter: 550, exit: 50 }}
+								classNames="contact"
+							>
 								<ContactItem cont={cont} />
 							</CSSTransition>
 						))}
@@ -57,7 +61,11 @@ const ContactList = ({
 				{contacts !== null && contacts.length > 0 ? (
 					<TransitionGroup>
 						{contacts.map(cont => (
-							<CSSTransition key={cont._id} classNames="contact" timeout={800}>
+							<CSSTransition
+								classNames="contact"
+								timeout={{ enter: 350 }}
+								key={cont._id}
+							>
 								<ContactItem cont={cont} />
 							</CSSTransition>
 						))}
