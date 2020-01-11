@@ -25,6 +25,8 @@ const Register = ({
 	const [confirmPassword, setConfirmPassword] = useState("");
 	const [email, setEmail] = useState("");
 
+	const [visibility, setVisibility] = useState(false);
+
 	useEffect(() => {
 		if (error !== null) {
 			// verifica se o valor de erro é um array ou não
@@ -41,6 +43,12 @@ const Register = ({
 		}
 		// eslint-disable-next-line
 	}, [error]);
+
+	useEffect(() => {
+		setTimeout(() => {
+			setVisibility(true);
+		}, 100);
+	}, []);
 
 	const onSubmit = ev => {
 		ev.preventDefault();
@@ -65,7 +73,11 @@ const Register = ({
 
 	return (
 		<React.Fragment>
-			<div className="flex-xy-center row custom-container">
+			<div
+				className={`flex-xy-center  row custom-container ${
+					visibility ? "fade-enter-active" : "fade-enter"
+				}`}
+			>
 				<form className="col s12">
 					<h2 className="center">Cadastro</h2>
 					<div className="row">

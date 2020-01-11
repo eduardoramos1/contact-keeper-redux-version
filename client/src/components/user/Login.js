@@ -22,6 +22,8 @@ const Login = ({
 	const [email, setEmail] = useState("");
 	const [password, setPassword] = useState("");
 
+	const [visibility, setVisibility] = useState(false);
+
 	useEffect(() => {
 		if (error !== null) {
 			// verifica se o valor de erro é um array ou não
@@ -38,6 +40,12 @@ const Login = ({
 		}
 		// eslint-disable-next-line
 	}, [error]);
+
+	useEffect(() => {
+		setTimeout(() => {
+			setVisibility(true);
+		}, 100);
+	}, []);
 
 	const login = ev => {
 		ev.preventDefault();
@@ -58,7 +66,11 @@ const Login = ({
 
 	return (
 		<React.Fragment>
-			<div className="flex-xy-center row custom-container">
+			<div
+				className={`flex-xy-center  row custom-container ${
+					visibility ? "fade-enter-active" : "fade-enter"
+				}`}
+			>
 				<form className="col s12">
 					<h2 className="center">Login</h2>
 					<div className="row">
