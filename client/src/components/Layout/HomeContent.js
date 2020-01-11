@@ -1,13 +1,18 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 
-const HomeContent = () => {
+import { connect } from "react-redux";
+import { setLoggedInUser } from "./../../actions/authActions";
+
+const HomeContent = ({ setLoggedInUser }) => {
 	const [visibility, setVisibility] = useState(false);
 
 	useEffect(() => {
 		setTimeout(() => {
 			setVisibility(true);
 		}, 100);
+
+		setLoggedInUser();
 	}, []);
 
 	return (
@@ -38,4 +43,8 @@ const HomeContent = () => {
 	);
 };
 
-export default HomeContent;
+const mapStateToProps = state => ({
+	auth: state.auth
+});
+
+export default connect(mapStateToProps, { setLoggedInUser })(HomeContent);

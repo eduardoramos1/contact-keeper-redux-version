@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 
 import Spinner from "./../Layout/Spinner";
 
+import { Redirect } from "react-router-dom";
+
 import M from "materialize-css/dist/js/materialize.min.js";
 import PropTypes from "prop-types";
 
@@ -18,7 +20,7 @@ const Register = ({
 	setLoading,
 	clearErrors,
 	setLoggedInUser,
-	auth: { loading, error }
+	auth: { loading, error, isAuthenticated }
 }) => {
 	const [name, setName] = useState("");
 	const [password, setPassword] = useState("");
@@ -70,6 +72,10 @@ const Register = ({
 			registerUser(formData).then(() => setLoggedInUser());
 		}
 	};
+
+	if (isAuthenticated) {
+		return <Redirect to="/contacts" />;
+	}
 
 	return (
 		<React.Fragment>

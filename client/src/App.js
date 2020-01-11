@@ -21,7 +21,7 @@ import "./App.css";
 function App() {
 	useEffect(() => {
 		M.AutoInit();
-	});
+	}, []);
 
 	return (
 		<Provider store={store}>
