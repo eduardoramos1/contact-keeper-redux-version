@@ -35,7 +35,8 @@ export default (state = initialState, action) => {
 			return {
 				...state,
 				user: action.payload,
-				isAuthenticated: true
+				isAuthenticated: true,
+				loading: false
 			};
 		case LOGIN_FAIL:
 		case AUTH_ERROR:

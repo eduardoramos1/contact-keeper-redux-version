@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import { setLoggedInUser } from "./../../actions/authActions";
 
-const HomeContent = ({ setLoggedInUser }) => {
+const HomeContent = ({ setLoggedInUser, auth: { isAuthenticated, user } }) => {
 	const [visibility, setVisibility] = useState(false);
 
 	useEffect(() => {
@@ -26,17 +26,32 @@ const HomeContent = ({ setLoggedInUser }) => {
 					Contact Keeper
 				</h1>
 				<div className="row center">
-					<h5 className="header col s12 grey-text text-darken-2">
-						Salve seus contatos nesta aplicação simples e rápida
-					</h5>
+					{isAuthenticated ? (
+						<h5 className="header col s12 grey-text text-darken-2">
+							Seja bem vindo {user.name}
+						</h5>
+					) : (
+						<h5 className="header col s12 grey-text text-darken-2">
+							Salve seus contatos nesta aplicação simples e rápida
+						</h5>
+					)}
 				</div>
 				<div className="row center">
-					<Link
-						to="/register"
-						className="btn-large purple waves-effect waves-light"
-					>
-						Cadastre-se
-					</Link>
+					{isAuthenticated ? (
+						<Link
+							to="/contacts"
+							className="btn-large purple waves-effect waves-light"
+						>
+							Contatos
+						</Link>
+					) : (
+						<Link
+							to="/register"
+							className="btn-large purple waves-effect waves-light"
+						>
+							Cadastre-se
+						</Link>
+					)}
 				</div>
 			</div>
 		</section>
