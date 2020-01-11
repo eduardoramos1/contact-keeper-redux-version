@@ -33,7 +33,7 @@ module.exports = connectDB;
 
 
 ```
-- Em arquivo "default.json", insira:
+- Em  "default.json", insira:
 ```
 {
 	"mongoURI": "INSIRA O SEU ACESSO AO MONGODB AQUI",
