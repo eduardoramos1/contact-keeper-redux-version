@@ -1,5 +1,8 @@
 import React, { useEffect } from "react";
 
+
+import M from "materialize-css/dist/js/materialize.min.js";
+
 import ContactList from "./ContactList";
 import Pagination from "./Pagination";
 
@@ -20,6 +23,9 @@ const Contacts = ({
 	useEffect(() => {
 		setLoading();
 		setLoggedInUser();
+		
+		var elems = document.querySelectorAll(".modal");
+		M.Modal.init(elems);
 	}, []);
 
 	return (
