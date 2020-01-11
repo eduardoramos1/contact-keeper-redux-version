@@ -142,18 +142,18 @@ li.active {
 	background-color: var(--secondary-color) !important;
 }
 
-/* animação REACT CSS TRANSITION */
-.contact-enter {
+/* animação*/
+.fade-enter {
 	opacity: 0;
 }
-.contact-enter-active {
+.fade-enter-active {
 	opacity: 1;
 	transition: opacity 350ms ease-in;
 }
-.contact-exit {
+.fade-exit {
 	opacity: 1;
 }
-.contact-exit-active {
+.fade-exit-active {
 	opacity: 0;
 	/* transition: opacity 50ms ease-in; */
 }
